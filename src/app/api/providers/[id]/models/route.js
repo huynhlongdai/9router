@@ -383,6 +383,39 @@ export async function GET(request, { params }) {
       });
     }
 
+    if (connection.provider === "windsurf") {
+      const baseUrl = connection.providerSpecificData?.baseUrl
+        || process.env.WINDSURF_API_URL
+        || "http://localhost:3003";
+      const url = `${baseUrl.replace(/\/$/, "")}/v1/models`;
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            ...(connection.apiKey ? { "Authorization": `Bearer ${connection.apiKey}` } : {}),
+          },
+        });
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.log(`Error fetching models from windsurf (${url}):`, errorText);
+          return NextResponse.json(
+            { error: `Failed to fetch models from WindsurfAPI: ${response.status}` },
+            { status: response.status }
+          );
+        }
+        const data = await response.json();
+        const models = parseOpenAIStyleModels(data);
+        return NextResponse.json({ provider: connection.provider, connectionId: connection.id, models });
+      } catch (error) {
+        console.log(`Error connecting to WindsurfAPI at ${url}:`, error.message);
+        return NextResponse.json(
+          { error: `Cannot reach WindsurfAPI at ${baseUrl}. Is it running?` },
+          { status: 503 }
+        );
+      }
+    }
+
     if (connection.provider === "ollama-local") {
       const url = `${resolveOllamaLocalHost(connection)}/api/tags`;
       const response = await fetch(url, {

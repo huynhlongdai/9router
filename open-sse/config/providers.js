@@ -228,6 +228,11 @@ export const PROVIDERS = {
     format: "openai",
     headers: {}
   },
+  windsurf: {
+    baseUrl: process.env.WINDSURF_API_URL || "http://localhost:3003/v1/chat/completions",
+    format: "openai",
+    headers: {}
+  },
   cline: {
     baseUrl: "https://api.cline.bot/api/v1/chat/completions",
     format: "openai",

@@ -15,6 +15,7 @@ export default function AddApiKeyModal({ isOpen, provider, providerName, isCompa
 
   const isAzure = provider === "azure";
   const isCloudflareAi = provider === "cloudflare-ai";
+  const isWindsurf = provider === "windsurf";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -30,6 +31,7 @@ export default function AddApiKeyModal({ isOpen, provider, providerName, isCompa
     organization: "",
   });
   const [cloudflareData, setCloudflareData] = useState({ accountId: "" });
+  const [windsurfBaseUrl, setWindsurfBaseUrl] = useState("http://localhost:3003");
   const [validating, setValidating] = useState(false);
   const [validationResult, setValidationResult] = useState(null);
   const [saving, setSaving] = useState(false);
@@ -48,6 +50,9 @@ export default function AddApiKeyModal({ isOpen, provider, providerName, isCompa
     }
     if (isCloudflareAi) {
       return { accountId: cloudflareData.accountId };
+    }
+    if (isWindsurf) {
+      return { baseUrl: windsurfBaseUrl.trim() || "http://localhost:3003" };
     }
     return undefined;
   };
@@ -196,6 +201,20 @@ export default function AddApiKeyModal({ isOpen, provider, providerName, isCompa
             />
             <p className="text-xs text-text-muted mt-2">
               Find your Account ID in the right sidebar of <a href="https://dash.cloudflare.com" target="_blank" rel="noopener noreferrer" className="text-primary underline">dash.cloudflare.com</a>
+            </p>
+          </div>
+        )}
+        {isWindsurf && (
+          <div className="bg-sidebar/50 p-4 rounded-lg border border-accent/20">
+            <h3 className="font-semibold mb-3 text-sm">WindsurfAPI Configuration</h3>
+            <Input
+              label="WindsurfAPI Base URL"
+              value={windsurfBaseUrl}
+              onChange={(e) => setWindsurfBaseUrl(e.target.value)}
+              placeholder="http://localhost:3003"
+            />
+            <p className="text-xs text-text-muted mt-2">
+              URL of your running WindsurfAPI instance. The API Key above should match the <code>API_KEY</code> you set in WindsurfAPI&apos;s <code>.env</code>. Add your <code>cog_</code> Devin.ai keys to WindsurfAPI&apos;s account pool via its dashboard.
             </p>
           </div>
         )}
