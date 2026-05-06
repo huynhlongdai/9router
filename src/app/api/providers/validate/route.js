@@ -513,6 +513,17 @@ export async function POST(request) {
           break;
         }
 
+        case "windsurf": {
+          let wsBaseUrl = providerSpecificData?.baseUrl || "http://localhost:3003";
+          wsBaseUrl = wsBaseUrl.replace(/\/v1\/?$/, "").replace(/\/$/, "");
+          const wsRes = await fetch(`${wsBaseUrl}/v1/models`, {
+            headers: { "Authorization": `Bearer ${apiKey}` },
+            signal: AbortSignal.timeout(8000),
+          });
+          isValid = wsRes.ok || (wsRes.status !== 401 && wsRes.status !== 403);
+          break;
+        }
+
         default:
           return NextResponse.json({ error: "Provider validation not supported" }, { status: 400 });
       }
