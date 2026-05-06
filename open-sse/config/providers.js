@@ -233,6 +233,11 @@ export const PROVIDERS = {
     format: "openai",
     headers: {}
   },
+  "vercel-ai": {
+    baseUrl: "https://ai-gateway.vercel.sh/v1/chat/completions",
+    format: "openai",
+    headers: {}
+  },
   cline: {
     baseUrl: "https://api.cline.bot/api/v1/chat/completions",
     format: "openai",

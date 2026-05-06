@@ -170,7 +170,8 @@ const PROVIDER_MODELS_CONFIG = {
   nanobanana: createOpenAIModelsConfig("https://api.nanobananaapi.ai/v1/models"),
   chutes: createOpenAIModelsConfig("https://llm.chutes.ai/v1/models"),
   nvidia: createOpenAIModelsConfig("https://integrate.api.nvidia.com/v1/models"),
-  assemblyai: createOpenAIModelsConfig("https://api.assemblyai.com/v1/models")
+  assemblyai: createOpenAIModelsConfig("https://api.assemblyai.com/v1/models"),
+  "vercel-ai": createOpenAIModelsConfig("https://ai-gateway.vercel.sh/v1/models")
 };
 
 /**

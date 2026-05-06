@@ -513,6 +513,15 @@ export async function POST(request) {
           break;
         }
 
+        case "vercel-ai": {
+          const vaiRes = await fetch("https://ai-gateway.vercel.sh/v1/models", {
+            headers: { "Authorization": `Bearer ${apiKey}` },
+            signal: AbortSignal.timeout(8000),
+          });
+          isValid = vaiRes.ok;
+          break;
+        }
+
         case "windsurf": {
           let wsBaseUrl = providerSpecificData?.baseUrl || "http://localhost:3003";
           wsBaseUrl = wsBaseUrl.replace(/\/v1\/?$/, "").replace(/\/$/, "");
