@@ -18,10 +18,11 @@ export class WindsurfExecutor extends BaseExecutor {
   }
 
   buildUrl(model, stream, urlIndex = 0, credentials = null) {
-    const baseUrl = credentials?.providerSpecificData?.baseUrl
+    let baseUrl = credentials?.providerSpecificData?.baseUrl
       || process.env.WINDSURF_API_URL
       || "http://localhost:3003";
-    return `${baseUrl.replace(/\/$/, "")}/v1/chat/completions`;
+    baseUrl = baseUrl.replace(/\/v1\/?$/, "").replace(/\/$/, "");
+    return `${baseUrl}/v1/chat/completions`;
   }
 
   buildHeaders(credentials, stream = true) {

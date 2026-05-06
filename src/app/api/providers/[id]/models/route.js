@@ -384,10 +384,11 @@ export async function GET(request, { params }) {
     }
 
     if (connection.provider === "windsurf") {
-      const baseUrl = connection.providerSpecificData?.baseUrl
+      let baseUrl = connection.providerSpecificData?.baseUrl
         || process.env.WINDSURF_API_URL
         || "http://localhost:3003";
-      const url = `${baseUrl.replace(/\/$/, "")}/v1/models`;
+      baseUrl = baseUrl.replace(/\/v1\/?$/, "").replace(/\/$/, "");
+      const url = `${baseUrl}/v1/models`;
       try {
         const response = await fetch(url, {
           method: "GET",
