@@ -14,6 +14,7 @@ import { OpenCodeGoExecutor } from "./opencode-go.js";
 import { GrokWebExecutor } from "./grok-web.js";
 import { PerplexityWebExecutor } from "./perplexity-web.js";
 import { WindsurfExecutor } from "./windsurf.js";
+import { OllamaLocalExecutor } from "./ollama-local.js";
 import { DefaultExecutor } from "./default.js";
 
 const executors = {
@@ -35,6 +36,7 @@ const executors = {
   "grok-web": new GrokWebExecutor(),
   "perplexity-web": new PerplexityWebExecutor(),
   windsurf: new WindsurfExecutor(),
+  "ollama-local": new OllamaLocalExecutor(),
 };
 
 const defaultCache = new Map();
@@ -67,3 +69,4 @@ export { OpenCodeGoExecutor } from "./opencode-go.js";
 export { GrokWebExecutor } from "./grok-web.js";
 export { PerplexityWebExecutor } from "./perplexity-web.js";
 export { WindsurfExecutor } from "./windsurf.js";
+export { OllamaLocalExecutor } from "./ollama-local.js";
